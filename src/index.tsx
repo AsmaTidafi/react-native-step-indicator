@@ -1,14 +1,15 @@
+import {
+  Animated,
+  StyleSheet,
+  Text,
+  TextStyle,
+  TouchableWithoutFeedback,
+  View,
+  ViewStyle,
+} from 'react-native';
+
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  Animated,
-  TouchableWithoutFeedback,
-  ViewStyle,
-  TextStyle,
-} from 'react-native';
 import { StepIndicatorProps } from './types';
 
 const STEP_STATUS = {
@@ -49,6 +50,7 @@ interface DefaultStepIndicatorStyles {
     | undefined;
   currentStepLabelColor: string;
   labelFontFamily?: string;
+  unfinishedStepLabelColor: string;
 }
 
 const defaultStyles: DefaultStepIndicatorStyles = {
@@ -76,6 +78,7 @@ const defaultStyles: DefaultStepIndicatorStyles = {
   labelSize: 13,
   labelAlign: 'center',
   currentStepLabelColor: '#4aae4f',
+  unfinishedStepLabelColor: "#44f",
 };
 
 const StepIndicator = ({
@@ -253,6 +256,8 @@ const StepIndicator = ({
       const selectedStepLabelStyle =
         index === currentPosition
           ? { color: customStyles.currentStepLabelColor }
+          : index > currentPosition 
+          ? { color: customStyles.unfinishedStepLabelColor }
           : { color: customStyles.labelColor };
       return (
         <TouchableWithoutFeedback
